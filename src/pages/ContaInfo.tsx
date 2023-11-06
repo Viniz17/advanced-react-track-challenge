@@ -1,20 +1,32 @@
-import { Text } from "@chakra-ui/react"
+import { Text, Box } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { AppContext } from "../components/AppContext"
 
-const ContaInfo = () => { 
+const ContaInfo = () => {
+    const { isLoggedIn, user } = useContext(AppContext)
+
     return (
         <>
             <Text fontSize='3xl' fontWeight='bold'>
                 Informações da conta
             </Text>
-            <Link to='/conta/1'>
-                <Text fontSize='xl'>
-                    Conta
+            {isLoggedIn ? (
+                <Box>
+                    <Text fontSize='xl'>
+                        Bem-vindo, {user}!
+                    </Text>
+                    <Link to='/conta/1'>
+                        <Text fontSize='xl'>
+                            Conta
+                        </Text>
+                    </Link>
+                </Box>
+            ) : (
+                <Text fontSize='xl' color='red'>
+                    Você precisa estar logado para acessar a página "Conta".
                 </Text>
-            </Link>
-            <a href='/conta/1'>
-                Link com tag a
-            </a>
+            )}
         </>
     )
 }
